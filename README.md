@@ -1,14 +1,8 @@
 # GitLab MCP Server
 
-[![Star History Chart](https://api.star-history.com/svg?repos=zereight/gitlab-mcp&type=Date)](https://www.star-history.com/#zereight/gitlab-mcp&Date)
-
-## @zereight/mcp-gitlab
-
-[![smithery badge](https://smithery.ai/badge/@zereight/gitlab-mcp)](https://smithery.ai/server/@zereight/gitlab-mcp)
+## @sanalrt999/mcp-gitlab
 
 GitLab MCP(Model Context Protocol) Server. **Includes bug fixes and improvements over the original GitLab MCP server.**
-
-<a href="https://glama.ai/mcp/servers/7jwbk4r6d7"><img width="380" height="200" src="https://glama.ai/mcp/servers/7jwbk4r6d7/badge" alt="gitlab mcp MCP server" /></a>
 
 ## Usage
 
@@ -23,7 +17,7 @@ When using with the Claude App, you need to set up your API key and URLs directl
   "mcpServers": {
     "gitlab": {
       "command": "npx",
-      "args": ["-y", "@zereight/mcp-gitlab"],
+      "args": ["-y", "@sanalrt999/mcp-gitlab"],
       "env": {
         "GITLAB_PERSONAL_ACCESS_TOKEN": "your_gitlab_token",
         "GITLAB_API_URL": "your_gitlab_api_url",
@@ -58,7 +52,7 @@ When using with the Claude App, you need to set up your API key and URLs directl
     "GitLab-MCP": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@zereight/mcp-gitlab"],
+      "args": ["-y", "@sanalrt999/mcp-gitlab"],
       "env": {
         "GITLAB_PERSONAL_ACCESS_TOKEN": "${input:gitlab-token}",
         "GITLAB_API_URL": "your-fancy-gitlab-url",
