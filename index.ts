@@ -258,6 +258,9 @@ const GITLAB_DENIED_TOOLS_REGEX = process.env.GITLAB_DENIED_TOOLS_REGEX ? new Re
 const USE_GITLAB_WIKI = process.env.USE_GITLAB_WIKI === "true";
 const USE_MILESTONE = process.env.USE_MILESTONE === "true";
 const USE_PIPELINE = process.env.USE_PIPELINE === "true";
+const USE_ISSUES = process.env.USE_ISSUES === "true";
+const USE_NOTES = process.env.USE_NOTES === "true";
+const USE_LABELS = process.env.USE_LABELS === "true";
 const SSE = process.env.SSE === "true";
 const STREAMABLE_HTTP = process.env.STREAMABLE_HTTP === "true";
 const HOST = process.env.HOST || "0.0.0.0";
@@ -937,6 +940,46 @@ const pipelineToolNames = [
   "play_pipeline_job",
   "retry_pipeline_job",
   "cancel_pipeline_job",
+];
+
+// Define which tools are related to issues and can be toggled by USE_ISSUES
+const issueToolNames = [
+  "create_issue",
+  "list_issues",
+  "my_issues",
+  "get_issue",
+  "update_issue",
+  "delete_issue",
+  "list_issue_links",
+  "list_issue_discussions",
+  "get_issue_link",
+  "create_issue_link",
+  "delete_issue_link",
+  "update_issue_note",
+  "create_issue_note",
+];
+
+// Define which tools are related to notes and can be toggled by USE_NOTES
+const noteToolNames = [
+  "create_note",
+  "update_merge_request_note",
+  "create_merge_request_note",
+  "get_draft_note",
+  "list_draft_notes",
+  "create_draft_note",
+  "update_draft_note",
+  "delete_draft_note",
+  "publish_draft_note",
+  "bulk_publish_draft_notes",
+];
+
+// Define which tools are related to labels and can be toggled by USE_LABELS
+const labelToolNames = [
+  "list_labels",
+  "get_label",
+  "create_label",
+  "update_label",
+  "delete_label",
 ];
 
 /**
@@ -4291,7 +4334,13 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
     ? tools1
     : tools1.filter(tool => !milestoneToolNames.includes(tool.name));
   // Toggle pipeline tools by USE_PIPELINE flag
-  let tools = USE_PIPELINE ? tools2 : tools2.filter(tool => !pipelineToolNames.includes(tool.name));
+  const tools3 = USE_PIPELINE ? tools2 : tools2.filter(tool => !pipelineToolNames.includes(tool.name));
+  // Toggle issue tools by USE_ISSUES flag
+  const tools4 = USE_ISSUES ? tools3 : tools3.filter(tool => !issueToolNames.includes(tool.name));
+  // Toggle note tools by USE_NOTES flag
+  const tools5 = USE_NOTES ? tools4 : tools4.filter(tool => !noteToolNames.includes(tool.name));
+  // Toggle label tools by USE_LABELS flag
+  let tools = USE_LABELS ? tools5 : tools5.filter(tool => !labelToolNames.includes(tool.name));
   tools = GITLAB_DENIED_TOOLS_REGEX ? tools.filter(tool => !GITLAB_DENIED_TOOLS_REGEX.test(tool.name)) : tools;
 
   // <<< START: Gemini 호환성을 위해 $schema 제거 >>>

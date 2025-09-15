@@ -32,7 +32,10 @@ When using with the Claude App, you need to set up your API key and URLs directl
         "GITLAB_READ_ONLY_MODE": "false",
         "USE_GITLAB_WIKI": "false", // use wiki api?
         "USE_MILESTONE": "false", // use milestone api?
-        "USE_PIPELINE": "false" // use pipeline api?
+        "USE_PIPELINE": "false", // use pipeline api?
+        "USE_ISSUES": "false", // use issue api?
+        "USE_NOTES": "false", // use notes/comments api?
+        "USE_LABELS": "false" // use labels api?
       }
     }
   }
@@ -92,6 +95,12 @@ When using with the Claude App, you need to set up your API key and URLs directl
         "USE_MILESTONE",
         "-e",
         "USE_PIPELINE",
+        "-e",
+        "USE_ISSUES",
+        "-e",
+        "USE_NOTES",
+        "-e",
+        "USE_LABELS",
         "iwakitakuma/gitlab-mcp"
       ],
       "env": {
@@ -100,7 +109,10 @@ When using with the Claude App, you need to set up your API key and URLs directl
         "GITLAB_READ_ONLY_MODE": "false",
         "USE_GITLAB_WIKI": "true",
         "USE_MILESTONE": "true",
-        "USE_PIPELINE": "true"
+        "USE_PIPELINE": "true",
+        "USE_ISSUES": "true",
+        "USE_NOTES": "true",
+        "USE_LABELS": "true"
       }
     }
   }
@@ -117,6 +129,9 @@ docker run -i --rm \
   -e USE_GITLAB_WIKI=true \
   -e USE_MILESTONE=true \
   -e USE_PIPELINE=true \
+  -e USE_ISSUES=true \
+  -e USE_NOTES=true \
+  -e USE_LABELS=true \
   -e SSE=true \
   -p 3333:3002 \
   iwakitakuma/gitlab-mcp
@@ -143,6 +158,9 @@ docker run -i --rm \
   -e USE_GITLAB_WIKI=true \
   -e USE_MILESTONE=true \
   -e USE_PIPELINE=true \
+  -e USE_ISSUES=true \
+  -e USE_NOTES=true \
+  -e USE_LABELS=true \
   -e STREAMABLE_HTTP=true \
   -p 3333:3002 \
   iwakitakuma/gitlab-mcp
@@ -172,6 +190,9 @@ docker run -i --rm \
 - `USE_GITLAB_WIKI`: When set to 'true', enables the wiki-related tools (list_wiki_pages, get_wiki_page, create_wiki_page, update_wiki_page, delete_wiki_page). By default, wiki features are disabled.
 - `USE_MILESTONE`: When set to 'true', enables the milestone-related tools (list_milestones, get_milestone, create_milestone, edit_milestone, delete_milestone, get_milestone_issue, get_milestone_merge_requests, promote_milestone, get_milestone_burndown_events). By default, milestone features are disabled.
 - `USE_PIPELINE`: When set to 'true', enables the pipeline-related tools (list_pipelines, get_pipeline, list_pipeline_jobs, list_pipeline_trigger_jobs, get_pipeline_job, get_pipeline_job_output, create_pipeline, retry_pipeline, cancel_pipeline, play_pipeline_job, retry_pipeline_job, cancel_pipeline_job). By default, pipeline features are disabled.
+- `USE_ISSUES`: When set to 'true', enables the issue-related tools (create_issue, list_issues, my_issues, get_issue, update_issue, delete_issue, list_issue_links, list_issue_discussions, get_issue_link, create_issue_link, delete_issue_link, update_issue_note, create_issue_note). By default, issue features are disabled.
+- `USE_NOTES`: When set to 'true', enables the note/comment-related tools (create_note, update_merge_request_note, create_merge_request_note, get_draft_note, list_draft_notes, create_draft_note, update_draft_note, delete_draft_note, publish_draft_note, bulk_publish_draft_notes). By default, note features are disabled.
+- `USE_LABELS`: When set to 'true', enables the label-related tools (list_labels, get_label, create_label, update_label, delete_label). By default, label features are disabled.
 - `GITLAB_AUTH_COOKIE_PATH`: Path to an authentication cookie file for GitLab instances that require cookie-based authentication. When provided, the cookie will be included in all GitLab API requests.
 - `SSE`: When set to 'true', enables the Server-Sent Events transport.
 - `STREAMABLE_HTTP`: When set to 'true', enables the Streamable HTTP transport. If both **SSE** and **STREAMABLE_HTTP** are set to 'true', the server will prioritize Streamable HTTP over SSE transport.
