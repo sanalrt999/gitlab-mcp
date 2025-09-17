@@ -17,7 +17,7 @@ When using with the Claude App, you need to set up your API key and URLs directl
   "mcpServers": {
     "gitlab": {
       "command": "npx",
-      "args": ["-y", "@sanalrt999/mcp-gitlab"],
+      "args": ["-y", "github:sanalrt999/mcp-gitlab"],
       "env": {
         "GITLAB_PERSONAL_ACCESS_TOKEN": "your_gitlab_token",
         "GITLAB_API_URL": "your_gitlab_api_url",
@@ -52,120 +52,13 @@ When using with the Claude App, you need to set up your API key and URLs directl
     "GitLab-MCP": {
       "type": "stdio",
       "command": "npx",
-      "args": ["-y", "@sanalrt999/mcp-gitlab"],
+      "args": ["-y", "github:sanalrt999/mcp-gitlab"],
       "env": {
         "GITLAB_PERSONAL_ACCESS_TOKEN": "${input:gitlab-token}",
         "GITLAB_API_URL": "your-fancy-gitlab-url",
         "GITLAB_READ_ONLY_MODE": "true",
         ...
       }
-    }
-  }
-}
-```
-
-#### Docker
-
-- stdio mcp.json
-
-```json
-{
-  "mcpServers": {
-    "gitlab": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "-e",
-        "GITLAB_PERSONAL_ACCESS_TOKEN",
-        "-e",
-        "GITLAB_API_URL",
-        "-e",
-        "GITLAB_READ_ONLY_MODE",
-        "-e",
-        "USE_GITLAB_WIKI",
-        "-e",
-        "USE_MILESTONE",
-        "-e",
-        "USE_PIPELINE",
-        "-e",
-        "USE_ISSUES",
-        "-e",
-        "USE_NOTES",
-        "-e",
-        "USE_LABELS",
-        "iwakitakuma/gitlab-mcp"
-      ],
-      "env": {
-        "GITLAB_PERSONAL_ACCESS_TOKEN": "your_gitlab_token",
-        "GITLAB_API_URL": "https://gitlab.com/api/v4", // Optional, for self-hosted GitLab
-        "GITLAB_READ_ONLY_MODE": "false",
-        "USE_GITLAB_WIKI": "true",
-        "USE_MILESTONE": "true",
-        "USE_PIPELINE": "true",
-        "USE_ISSUES": "true",
-        "USE_NOTES": "true",
-        "USE_LABELS": "true"
-      }
-    }
-  }
-}
-```
-
-- sse
-
-```shell
-docker run -i --rm \
-  -e GITLAB_PERSONAL_ACCESS_TOKEN=your_gitlab_token \
-  -e GITLAB_API_URL="https://gitlab.com/api/v4" \
-  -e GITLAB_READ_ONLY_MODE=true \
-  -e USE_GITLAB_WIKI=true \
-  -e USE_MILESTONE=true \
-  -e USE_PIPELINE=true \
-  -e USE_ISSUES=true \
-  -e USE_NOTES=true \
-  -e USE_LABELS=true \
-  -e SSE=true \
-  -p 3333:3002 \
-  iwakitakuma/gitlab-mcp
-```
-
-```json
-{
-  "mcpServers": {
-    "gitlab": {
-      "type": "sse",
-      "url": "http://localhost:3333/sse"
-    }
-  }
-}
-```
-
-- streamable-http
-
-```shell
-docker run -i --rm \
-  -e GITLAB_PERSONAL_ACCESS_TOKEN=your_gitlab_token \
-  -e GITLAB_API_URL="https://gitlab.com/api/v4" \
-  -e GITLAB_READ_ONLY_MODE=true \
-  -e USE_GITLAB_WIKI=true \
-  -e USE_MILESTONE=true \
-  -e USE_PIPELINE=true \
-  -e USE_ISSUES=true \
-  -e USE_NOTES=true \
-  -e USE_LABELS=true \
-  -e STREAMABLE_HTTP=true \
-  -p 3333:3002 \
-  iwakitakuma/gitlab-mcp
-```
-
-```json
-{
-  "mcpServers": {
-    "gitlab": {
-      "type": "streamable-http",
-      "url": "http://localhost:3333/mcp"
     }
   }
 }
